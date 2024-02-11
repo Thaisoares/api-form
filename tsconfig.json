@@ -6,5 +6,6 @@
         "esModuleInterop": true,
         "allowJs": true,
         "strict": true,
+        "useUnknownInCatchVariables": false
     }
 }
