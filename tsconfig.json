@@ -4,8 +4,14 @@
         "module": "CommonJS",
         "target": "es2020",
         "esModuleInterop": true,
-        "allowJs": true,
         "strict": true,
         "useUnknownInCatchVariables": false
-    }
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
 }
