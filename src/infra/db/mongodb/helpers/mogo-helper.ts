@@ -21,7 +21,6 @@ export const MongoHelper = {
 
   async getCollection (name: string): Promise<Collection> {
     if (this.client == null) {
-      console.log(this.uri)
       if (!this.uri) throw new NoMongodbConnection()
       this.client = new MongoClient(this.uri)
       await this.client.connect()
