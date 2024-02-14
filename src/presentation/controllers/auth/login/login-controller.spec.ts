@@ -1,6 +1,6 @@
 import { type AuthenticationModel, type Authentication, type Validation } from './login-controller-protocols'
-import { MissingParamError, ServerError } from '../../errors'
-import { badRequest, ok, unauthorized } from '../../helpers/http/http-helper'
+import { MissingParamError, ServerError } from '../../../errors'
+import { badRequest, ok, unauthorized } from '../../../helpers/http/http-helper'
 import { LoginController } from './login-controller'
 
 const token = 'any_token'
