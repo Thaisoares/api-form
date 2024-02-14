@@ -44,5 +44,4 @@ describe('Survey Mongo Repository', () => {
     const currentCount = await surveysCollection.countDocuments()
     expect(currentCount).toBe(beforeCount+1)
   })
-
 })
