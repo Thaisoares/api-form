@@ -35,10 +35,10 @@ describe('Account Mongo Repository', () => {
     const account = await sut.add({ name, email, password })
 
     expect(account).toBeTruthy()
-    expect(account.id).toBeTruthy()
-    expect(account.name).toBe(name)
-    expect(account.email).toBe(email)
-    expect(account.password).toBe(password)
+    expect(account?.id).toBeTruthy()
+    expect(account?.name).toBe(name)
+    expect(account?.email).toBe(email)
+    expect(account?.password).toBe(password)
   })
 
   test('Should return an account on success of loadByEmail', async () => {

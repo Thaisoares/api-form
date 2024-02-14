@@ -1,6 +1,5 @@
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
-import { type Validation } from '../signup/signup-controller-protocols'
-import { type Controller, type HttpRequest, type HttpResponse, type Authentication } from './login-controller-protocols'
+import { type Controller, type HttpRequest, type HttpResponse, type Authentication, type Validation } from './login-controller-protocols'
 
 export class LoginController implements Controller {
   constructor (
@@ -14,7 +13,7 @@ export class LoginController implements Controller {
       if (errorValidation) {
         return badRequest(errorValidation)
       }
-
+      console.log('sem erro de validação')
       const { email, password } = httpRequest.body
       const accessToken = await this.authentication.auth({ email, password })
       if (!accessToken) return unauthorized()
