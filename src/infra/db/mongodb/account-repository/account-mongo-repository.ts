@@ -14,7 +14,7 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     if (result.acknowledged) {
       return MongoHelper.map(accountData)
     }
-    throw new InsertError()
+    throw new InsertError('accounts')
   }
 
   async loadByEmail (email: string): Promise<AccountModel | null> {
