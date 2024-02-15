@@ -1,15 +1,15 @@
 import { MongoHelper } from '../helpers/mogo-helper'
 import { type Collection } from 'mongodb'
 import { SurveyMongoRepository } from './survey-mongo-repository'
-import { AddSurveyModel } from '../../../../domain/usecases/add-survey'
+import { type AddSurveyModel } from '../../../../domain/usecases/add-survey'
 
 let surveysCollection: Collection
 
 const survey: AddSurveyModel = {
   question: 'question',
   answers: [{
-      image: 'image',
-      answer: 'answer'
+    image: 'image',
+    answer: 'answer'
   }, {
     answer: 'answer'
   }]
@@ -36,12 +36,11 @@ describe('Survey Mongo Repository', () => {
     await surveysCollection.deleteMany({})
   })
 
-
   test('Should add one survey on success of add', async () => {
     const sut = makeSut()
     const beforeCount = await surveysCollection.countDocuments()
     await sut.add(survey)
     const currentCount = await surveysCollection.countDocuments()
-    expect(currentCount).toBe(beforeCount+1)
+    expect(currentCount).toBe(beforeCount + 1)
   })
 })

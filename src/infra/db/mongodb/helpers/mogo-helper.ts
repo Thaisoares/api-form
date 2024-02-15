@@ -12,7 +12,7 @@ export const MongoHelper = {
   },
 
   async disconnect () {
-    if (this.client) {
+    if (this.client != null) {
       await this.client.close()
       this.client = null
       this.uri = null
@@ -21,7 +21,7 @@ export const MongoHelper = {
 
   async getCollection (name: string): Promise<Collection> {
     if (this.client == null) {
-      if (!this.uri) throw new NoMongodbConnection()
+      if (this.uri == null) throw new NoMongodbConnection()
       this.client = new MongoClient(this.uri)
       await this.client.connect()
     }
