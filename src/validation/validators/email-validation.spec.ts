@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+import { InvalidParamError } from '../../presentation/errors'
 import { type EmailValidator } from '../protocols/email-validator'
 import { EmailValidation } from './email-validation'
 
@@ -46,7 +47,15 @@ describe('Email Validation', () => {
   test('Should return null if data provided is correct', () => {
     const { sut } = makeSut()
     const email = 'email@mail.com'
+    const value = sut.validate({ email })
+    expect(value).toBe(null)
+  })
+
+  test('Should return InvalidParamError if data provided is invalid', () => {
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
+    const email = 'invalidEmail'
     const error = sut.validate({ email })
-    expect(error).toBe(null)
+    expect(error).toBeInstanceOf(InvalidParamError)
   })
 })

@@ -1,6 +1,4 @@
-import { type AddAccountRepository } from '../../../../data/protocols/db/account/add-account-repository'
-import { type LoadAccountByEmailRepository } from '../../../../data/protocols/db/account/load-account-by-email-repository'
-import { AddSurveyModel, AddSurveyRepository } from '../../../../data/usecases/add-survey/db-add-survey-protocols'
+import { type AddSurveyModel, type AddSurveyRepository } from '../../../../data/usecases/add-survey/db-add-survey-protocols'
 import { InsertError } from '../errors'
 import { MongoHelper } from '../helpers/mogo-helper'
 

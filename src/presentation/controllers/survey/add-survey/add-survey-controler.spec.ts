@@ -1,56 +1,54 @@
-import { AddSurvey, AddSurveyModel, Controller, HttpRequest, HttpResponse, Validation } from "./add-survey-controler-protocols";
+import { type AddSurvey, type AddSurveyModel, Controller, HttpRequest, HttpResponse, type Validation } from './add-survey-controler-protocols'
 import { AddSurveyController } from './add-survey-controler'
-import { MissingParamError } from "../../../errors";
-import { badRequest, noContent, serverError } from "../../../helpers/http/http-helper";
+import { MissingParamError, ServerError } from '../../../errors'
+import { badRequest, noContent, serverError } from '../../../helpers/http/http-helper'
 
 const makeHttpRequest = (): any => {
-    return {
-      body: {
-        question: 'question',
-        answers: [{
-            image: 'image',
-            answer: 'answer'
-        }]
-      }
+  return {
+    body: {
+      question: 'question',
+      answers: [{
+        image: 'image',
+        answer: 'answer'
+      }]
     }
   }
-  
+}
 
-  const makeValidation = (): Validation => {
-    class ValidationStub implements Validation {
-      validate (input: any): Error | null {
-        return null
-      }
+const makeValidation = (): Validation => {
+  class ValidationStub implements Validation {
+    validate (input: any): Error | null {
+      return null
     }
-    return new ValidationStub()
   }
+  return new ValidationStub()
+}
 
-  const makeAddSurvey = (): AddSurvey => {
-    class AddSurveyStub implements AddSurvey {
-      async add (data: AddSurveyModel): Promise<null> {
-        return null
-      }
-    }
-    return new AddSurveyStub()
-  }
-  
-  interface sutTypes {
-    sut: AddSurveyController
-    validationStub: Validation
-    addSurveyStub: AddSurvey
-  }
-  
-  const makeSut = (): sutTypes => {
-    const validationStub = makeValidation()
-    const addSurveyStub = makeAddSurvey()
-    const sut = new AddSurveyController(validationStub, addSurveyStub)
-    return {
-      sut,
-      validationStub,
-      addSurveyStub
+const makeAddSurvey = (): AddSurvey => {
+  class AddSurveyStub implements AddSurvey {
+    async add (data: AddSurveyModel): Promise<null> {
+      return null
     }
   }
-  
+  return new AddSurveyStub()
+}
+
+interface sutTypes {
+  sut: AddSurveyController
+  validationStub: Validation
+  addSurveyStub: AddSurvey
+}
+
+const makeSut = (): sutTypes => {
+  const validationStub = makeValidation()
+  const addSurveyStub = makeAddSurvey()
+  const sut = new AddSurveyController(validationStub, addSurveyStub)
+  return {
+    sut,
+    validationStub,
+    addSurveyStub
+  }
+}
 
 describe('Add Survey Controller', () => {
   test('Should call Validation with correct values', async () => {
