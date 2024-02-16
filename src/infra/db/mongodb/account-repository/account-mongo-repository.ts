@@ -1,5 +1,6 @@
 import { type AddAccountRepository } from '../../../../data/protocols/db/account/add-account-repository'
 import { type LoadAccountByEmailRepository } from '../../../../data/protocols/db/account/load-account-by-email-repository'
+import { type LoadAccountByTokenRepository } from '../../../../data/protocols/db/account/load-account-by-token-repository'
 import { type UpdateAccessTokenRepository } from '../../../../data/protocols/db/account/update-access-token-repository'
 import { type AccountModel } from '../../../../domain/models/account'
 import { type AddAccountModel } from '../../../../domain/usecases/add-account'
@@ -7,7 +8,7 @@ import { InsertError } from '../errors'
 import { MongoHelper } from '../helpers/mogo-helper'
 import { ObjectId } from 'mongodb'
 
-export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {
+export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
   async add (accountData: AddAccountModel): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(accountData)
@@ -20,7 +21,7 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
   async loadByEmail (email: string): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({ email })
-    return account ?? MongoHelper.map(account)
+    return account && MongoHelper.map(account)
   }
 
   async updateAccessToken (id: string, token: string): Promise<void> {
@@ -31,5 +32,11 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
         accessToken: token
       }
     })
+  }
+
+  async loadByToken (token: string, role?: string): Promise<AccountModel | null> {
+    const accountCollection = await MongoHelper.getCollection('accounts')
+    const account = await accountCollection.findOne({ accessToken: token, role })
+    return account && MongoHelper.map(account)
   }
 }
