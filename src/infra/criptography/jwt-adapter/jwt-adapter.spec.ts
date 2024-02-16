@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import jwt from 'jsonwebtoken'
+import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { JwtAdapter } from './jwt-adapter'
 
 const secret = 'secret'
@@ -8,8 +8,8 @@ jest.mock('jsonwebtoken', () => ({
   async sign (): Promise<string> {
     return await Promise.resolve('token')
   },
-  verify (): string {
-    return 'value'
+  verify (): JwtPayload {
+    return { id: 'id' }
   }
 }))
 
@@ -51,17 +51,17 @@ describe('JWT Adapter', () => {
       expect(verifySpy).toHaveBeenCalledWith(token, secret)
     })
 
-    test('Should throw if verify throws', async () => {
+    test('Should return null if verify throws (invalid token)', async () => {
       const sut = makeSut()
       jest.spyOn(jwt, 'verify').mockImplementationOnce(() => { throw new Error() })
-      const promise = sut.decrypt(token)
-      await expect(promise).rejects.toThrow()
+      const value = await sut.decrypt(token)
+      expect(value).toBeNull()
     })
 
     test('Should return token returned by verify', async () => {
       const sut = makeSut()
       const value = await sut.decrypt(token)
-      expect(value).toBe('value')
+      expect(value).toBe('id')
     })
   })
 })
