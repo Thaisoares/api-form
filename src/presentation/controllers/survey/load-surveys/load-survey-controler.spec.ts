@@ -1,5 +1,5 @@
 import { type SurveyModel, type LoadSurveys } from './load-survey-controler-protocols'
-import { ok, serverError } from '../../../helpers/http/http-helper'
+import { noContent, ok, serverError } from '../../../helpers/http/http-helper'
 import { LoadSurveysController } from './load-survey-controler'
 
 const surveys: SurveyModel[] = [{
@@ -68,5 +68,13 @@ describe('Load Surveys Controller', () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle({})
     expect(httpResponse).toEqual(ok({ surveys }))
+  })
+
+  test('Should return 204 if no survey', async () => {
+    const { sut, loadSurveysStub } = makeSut()
+    const surveys: SurveyModel[] = []
+    jest.spyOn(loadSurveysStub, 'load').mockReturnValueOnce(Promise.resolve(surveys))
+    const httpResponse = await sut.handle({})
+    expect(httpResponse).toEqual(noContent())
   })
 })
