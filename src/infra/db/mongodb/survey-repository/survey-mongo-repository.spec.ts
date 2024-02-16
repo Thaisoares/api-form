@@ -11,8 +11,6 @@ const survey: AddSurveyModel = {
   answers: [{
     image: 'image',
     answer: 'answer'
-  }, {
-    answer: 'answer2'
   }],
   date: new Date()
 }
@@ -48,8 +46,9 @@ describe('Survey Mongo Repository', () => {
 
   test('Should return surveys on success of loadAll', async () => {
     const sut = makeSut()
-    await surveysCollection.insertOne({ ...survey, _id: new ObjectId('65c3ce0390cbb2ba1aee5db1') })
-    await surveysCollection.insertOne({ ...survey, _id: new ObjectId('65c3ce0390cbb2ba1aee5db2') })
+    await surveysCollection.insertMany([{ ...survey, _id: new ObjectId('65c3ce0390cbb2ba1aee5db1') },
+      { ...survey, _id: new ObjectId('65c3ce0390cbb2ba1aee5db2') }])
+
     const surveys = await sut.loadAll()
     expect(surveys).toHaveLength(2)
     expect(surveys[0]).toHaveProperty('question')
