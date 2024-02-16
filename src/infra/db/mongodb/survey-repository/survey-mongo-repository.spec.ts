@@ -12,7 +12,8 @@ const survey: AddSurveyModel = {
     answer: 'answer'
   }, {
     answer: 'answer'
-  }]
+  }],
+  date: new Date()
 }
 
 const makeSut = (): SurveyMongoRepository => {
