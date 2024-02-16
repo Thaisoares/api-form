@@ -1,7 +1,8 @@
-import { type AddSurvey, type AddSurveyModel, Controller, HttpRequest, HttpResponse, type Validation } from './add-survey-controler-protocols'
+import { type AddSurvey, type AddSurveyModel, type Validation } from './add-survey-controler-protocols'
 import { AddSurveyController } from './add-survey-controler'
-import { MissingParamError, ServerError } from '../../../errors'
+import { MissingParamError } from '../../../errors'
 import { badRequest, noContent, serverError } from '../../../helpers/http/http-helper'
+import Mockdate from 'mockdate'
 
 const makeHttpRequest = (): any => {
   return {
@@ -51,6 +52,14 @@ const makeSut = (): sutTypes => {
 }
 
 describe('Add Survey Controller', () => {
+  beforeAll(() => {
+    Mockdate.set(new Date())
+  })
+
+  afterAll(() => {
+    Mockdate.reset()
+  })
+
   test('Should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validationSpy = jest.spyOn(validationStub, 'validate')
@@ -74,7 +83,7 @@ describe('Add Survey Controller', () => {
     const addSpy = jest.spyOn(addSurveyStub, 'add')
     const httpRequest = makeHttpRequest()
     await sut.handle(httpRequest)
-    expect(addSpy).toHaveBeenCalledWith(httpRequest.body)
+    expect(addSpy).toHaveBeenCalledWith({ ...httpRequest.body, date: new Date() })
   })
 
   test('Should return 500 if AddSurvey throws', async () => {

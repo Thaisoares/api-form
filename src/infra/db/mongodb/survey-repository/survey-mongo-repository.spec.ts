@@ -2,6 +2,7 @@ import { MongoHelper } from '../helpers/mogo-helper'
 import { type Collection } from 'mongodb'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 import { type AddSurveyModel } from '../../../../domain/usecases/add-survey'
+import { ObjectId } from 'mongodb'
 
 let surveysCollection: Collection
 
@@ -10,9 +11,8 @@ const survey: AddSurveyModel = {
   answers: [{
     image: 'image',
     answer: 'answer'
-  }, {
-    answer: 'answer'
-  }]
+  }],
+  date: new Date()
 }
 
 const makeSut = (): SurveyMongoRepository => {
@@ -42,5 +42,23 @@ describe('Survey Mongo Repository', () => {
     await sut.add(survey)
     const currentCount = await surveysCollection.countDocuments()
     expect(currentCount).toBe(beforeCount + 1)
+  })
+
+  test('Should return surveys on success of loadAll', async () => {
+    const sut = makeSut()
+    await surveysCollection.insertMany([{ ...survey, _id: new ObjectId('65c3ce0390cbb2ba1aee5db1') },
+      { ...survey, _id: new ObjectId('65c3ce0390cbb2ba1aee5db2') }])
+
+    const surveys = await sut.loadAll()
+    expect(surveys).toHaveLength(2)
+    expect(surveys[0]).toHaveProperty('question')
+    expect(surveys[0]).toHaveProperty('answers')
+    expect(surveys[0]).toHaveProperty('date')
+  })
+
+  test('Should return empty list when no survey on db', async () => {
+    const sut = makeSut()
+    const surveys = await sut.loadAll()
+    expect(surveys).toHaveLength(0)
   })
 })
