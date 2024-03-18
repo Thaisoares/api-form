@@ -1,6 +1,6 @@
 import { type SurveyModel, type LoadSurveys } from './load-survey-controler-protocols'
-import { noContent, ok, serverError } from '../../../helpers/http/http-helper'
 import { LoadSurveysController } from './load-survey-controler'
+import { noContent, ok, serverError } from '@/presentation/helpers/http/http-helper'
 
 const surveys: SurveyModel[] = [{
   id: 'id',

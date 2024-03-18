@@ -1,11 +1,11 @@
 import request from 'supertest'
 import app from '../config/app'
-import { MongoHelper } from '../../infra/db/mongodb/helpers/mogo-helper'
+import env from '../config/env'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mogo-helper'
+import { type AddSurveyModel } from '@/domain/usecases/add-survey'
 import { type Collection, ObjectId } from 'mongodb'
 import { hash } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
-import env from '../config/env'
-import { type AddSurveyModel } from '../../domain/usecases/add-survey'
 
 const makeAccessToken = async (role?: string): Promise<string> => {
   let accountData = {

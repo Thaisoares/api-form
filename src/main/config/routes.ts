@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { type Express, Router } from 'express'
 import { readdirSync } from 'fs'
 import path from 'path'
 
-export default (app: Express): void => {
+export default async (app: Express): Promise<void> => {
   const router = Router()
   app.use('/api', router)
 

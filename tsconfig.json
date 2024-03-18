@@ -6,13 +6,14 @@
         "esModuleInterop": true,
         "strict": true,
         "useUnknownInCatchVariables": false,
-        "sourceMap": true
+        "sourceMap": true,
+        "baseUrl": "src",
+        "paths": {
+            "@/*": ["*"]
+        }
     },
     "include": [
         "src"
     ],
-    "exclude": [
-        "**/*.spec.ts",
-        "**/*.test.ts"
-    ]
+    "exclude": []
 }

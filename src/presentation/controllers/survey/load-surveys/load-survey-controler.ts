@@ -1,4 +1,4 @@
-import { noContent, ok, serverError } from '../../../helpers/http/http-helper'
+import { noContent, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { type LoadSurveys, type Controller, type HttpRequest, type HttpResponse } from './load-survey-controler-protocols'
 
 export class LoadSurveysController implements Controller {

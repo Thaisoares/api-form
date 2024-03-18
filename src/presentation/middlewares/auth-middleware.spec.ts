@@ -1,8 +1,8 @@
 import { type HttpRequest, type LoadAccountByToken } from './auth-middleware-protocols'
 import { AuthMiddleware } from './auth-middleware'
-import { forbidden, ok, serverError } from '../helpers/http/http-helper'
-import { AccessDeniedError } from '../errors'
-import { type AccountModel } from '../../domain/models/account'
+import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
+import { AccessDeniedError } from '@/presentation/errors'
+import { type AccountModel } from '@/domain/models/account'
 
 const token = 'token'
 const httpRequest: HttpRequest = {

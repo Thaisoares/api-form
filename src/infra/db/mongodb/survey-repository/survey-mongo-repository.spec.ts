@@ -1,8 +1,7 @@
-import { MongoHelper } from '../helpers/mogo-helper'
-import { type Collection } from 'mongodb'
 import { SurveyMongoRepository } from './survey-mongo-repository'
-import { type AddSurveyModel } from '../../../../domain/usecases/add-survey'
-import { ObjectId } from 'mongodb'
+import { MongoHelper } from '../helpers/mogo-helper'
+import { type AddSurveyModel } from '@/domain/usecases/add-survey'
+import { ObjectId, type Collection } from 'mongodb'
 
 let surveysCollection: Collection
 

@@ -1,6 +1,6 @@
 import { type AccountModel, type Decrypter } from './db-load-account-by-token-protocols'
 import { DbLoadAccountByToken } from './db-load-account-by-token'
-import { type LoadAccountByTokenRepository } from '../../protocols/db/account/load-account-by-token-repository'
+import { type LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
 
 const loadData = {
   accessToken: 'accessToken',

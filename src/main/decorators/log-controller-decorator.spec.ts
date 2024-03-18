@@ -1,7 +1,7 @@
-import { type LogErrorRepository } from '../../data/protocols/db/log/log-error-repository'
-import { serverError } from '../../presentation/helpers/http/http-helper'
-import { type Controller, type HttpRequest, type HttpResponse } from '../../presentation/protocols'
 import { LogControllerDecorator } from './log-controller-decorator'
+import { type LogErrorRepository } from '@/data/protocols/db/log/log-error-repository'
+import { serverError } from '@/presentation/helpers/http/http-helper'
+import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 
 const makeHttpRequest = (): HttpRequest => {
   return {

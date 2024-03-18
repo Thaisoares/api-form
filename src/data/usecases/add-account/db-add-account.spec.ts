@@ -1,4 +1,4 @@
-import { LoadAccountByEmailRepository, type AccountModel, type AddAccountModel, type AddAccountRepository, type Hasher } from './db-add-account-protocols'
+import { type LoadAccountByEmailRepository, type AccountModel, type AddAccountModel, type AddAccountRepository, type Hasher } from './db-add-account-protocols'
 import { DbAddAccount } from './db-add-account'
 
 const makeAccountData = (): AddAccountModel => {
