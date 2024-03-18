@@ -32,7 +32,7 @@ const makeValidation = (): Validation => {
   return new ValidationStub()
 }
 
-interface sutTypes {
+type sutTypes = {
   sut: LoginController
   authenticationStub: Authentication
   validationStub: Validation
