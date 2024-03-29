@@ -20,7 +20,6 @@ export const MongoHelper = {
 
   async getCollection (name: string): Promise<Collection> {
     if (this.client === null) {
-      console.log('log', this.client, this.uri)
       if (this.uri === null) throw new NoMongodbConnection()
       this.client = new MongoClient(this.uri)
       await this.client.connect()
@@ -30,6 +29,7 @@ export const MongoHelper = {
 
   map (collection: any): any {
     const { _id, ...accountWithoutId } = collection
-    return { ...accountWithoutId, id: _id }
+    const id = _id?.toString()
+    return { ...accountWithoutId, id }
   }
 }
