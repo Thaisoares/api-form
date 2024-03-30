@@ -19,7 +19,7 @@ const fakeAccount: AccountModel = {
 const makeHasher = (): Hasher => {
   class HasherStub implements Hasher {
     async hash (value: string): Promise<string> {
-      return await new Promise(resolve => { resolve('hashedPassword') })
+      return await Promise.resolve('hashedPassword')
     }
   }
   return new HasherStub()
@@ -28,7 +28,7 @@ const makeHasher = (): Hasher => {
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (accountData: AddAccountParams): Promise<AccountModel> {
-      return await new Promise(resolve => { resolve(fakeAccount) })
+      return await Promise.resolve(fakeAccount)
     }
   }
   return new AddAccountRepositoryStub()

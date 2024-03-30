@@ -18,7 +18,7 @@ const account: AccountModel = {
   password: 'encryptedPassword'
 }
 
-const makeLoadAccountByToken = (): LoadAccountByToken => {
+const mockLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (token: string, role?: string): Promise<AccountModel | null> {
       return await Promise.resolve(account)
@@ -33,7 +33,7 @@ type sutTypes = {
 }
 
 const makeSut = (role?: string): sutTypes => {
-  const loadAccountByTokenStub = makeLoadAccountByToken()
+  const loadAccountByTokenStub = mockLoadAccountByToken()
   const sut = new AuthMiddleware(loadAccountByTokenStub, role)
   return {
     sut,
