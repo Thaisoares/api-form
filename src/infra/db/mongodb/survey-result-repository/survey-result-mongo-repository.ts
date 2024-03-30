@@ -1,12 +1,12 @@
 import { type SaveSurveyResultRepository } from '@/data/protocols/db/survey-result/save-survey-result-repository'
 import { type SurveyResultModel } from '@/domain/models/survey-result'
-import { type SaveSurveyResultModel } from '@/domain/usecases/survey-result/save-survey-result'
+import { type SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
 import { MongoHelper } from '../helpers/mogo-helper'
 import { ObjectId } from 'mongodb'
 import { InvalidParamError } from '@/presentation/errors'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
-  async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+  async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     const surveysCollection = await MongoHelper.getCollection('surveys')
     const surveyObjectId = new ObjectId(data.surveyId)
     const survey = await surveysCollection.findOne({ _id: surveyObjectId })

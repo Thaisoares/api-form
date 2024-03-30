@@ -1,4 +1,4 @@
-import { type AddSurvey, type AddSurveyModel, type Validation } from './add-survey-controler-protocols'
+import { type AddSurvey, type AddSurveyParams, type Validation } from './add-survey-controler-protocols'
 import { AddSurveyController } from './add-survey-controler'
 import { MissingParamError } from '@/presentation/errors'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http-helper'
@@ -27,7 +27,7 @@ const makeValidation = (): Validation => {
 
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    async add (data: AddSurveyModel): Promise<null> {
+    async add (data: AddSurveyParams): Promise<null> {
       return null
     }
   }

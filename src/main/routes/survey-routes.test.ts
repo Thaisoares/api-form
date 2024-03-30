@@ -2,7 +2,7 @@ import request from 'supertest'
 import app from '../config/app'
 import env from '../config/env'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mogo-helper'
-import { type AddSurveyModel } from '@/domain/usecases/survey/add-survey'
+import { type AddSurveyParams } from '@/domain/usecases/survey/add-survey'
 import { type Collection, ObjectId } from 'mongodb'
 import { hash } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
@@ -55,7 +55,7 @@ describe('Survey Routes', () => {
         .post('/api/surveys')
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -73,7 +73,7 @@ describe('Survey Routes', () => {
         .set('x-access-token', 'invalidToken')
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -91,7 +91,7 @@ describe('Survey Routes', () => {
         .set('x-access-token', accessToken)
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -109,7 +109,7 @@ describe('Survey Routes', () => {
         .set('x-access-token', accessToken)
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -121,7 +121,7 @@ describe('Survey Routes', () => {
   })
 
   describe('GET /surveys', () => {
-    const survey: AddSurveyModel = {
+    const survey: AddSurveyParams = {
       question: 'question',
       answers: [{
         image: 'image',
