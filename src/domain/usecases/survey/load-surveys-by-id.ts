@@ -1,4 +1,4 @@
-import { type SurveyModel } from '../models/survey'
+import { type SurveyModel } from '../../models/survey'
 
 export interface LoadSurveyById {
   loadById: (id: string) => Promise<SurveyModel | null>

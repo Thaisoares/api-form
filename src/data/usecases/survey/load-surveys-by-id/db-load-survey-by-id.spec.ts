@@ -1,4 +1,4 @@
-import { type LoadSurveyByIdRepository, type SurveyModel } from '../load-surveys-by-id/db-load-survey-by-id-protocols'
+import { type LoadSurveyByIdRepository, type SurveyModel } from './db-load-survey-by-id-protocols'
 import { DbLoadSurveyById } from './db-load-survey-by-id'
 
 const survey: SurveyModel = {

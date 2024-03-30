@@ -1,6 +1,6 @@
-import { type SaveSurveyResultRepository } from '@/data/protocols/db/survey/save-survey-result-repository'
+import { type SaveSurveyResultRepository } from '@/data/protocols/db/survey-result/save-survey-result-repository'
 import { type SurveyResultModel } from '@/domain/models/survey-result'
-import { type SaveSurveyResultModel } from '@/domain/usecases/save-survey-result'
+import { type SaveSurveyResultModel } from '@/domain/usecases/survey-result/save-survey-result'
 import { MongoHelper } from '../helpers/mogo-helper'
 import { ObjectId } from 'mongodb'
 import { InvalidParamError } from '@/presentation/errors'
