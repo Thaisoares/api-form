@@ -59,7 +59,7 @@ describe('Survey Results Routes', () => {
     test('Should return 403 on add survey with wrong accessToken', async () => {
       const survey = await surveysCollection.insertOne({
         question: 'Question',
-        answer: [{
+        answers: [{
           image: 'Image',
           answer: 'answer'
         }, {
@@ -84,7 +84,7 @@ describe('Survey Results Routes', () => {
 
       const survey = await surveysCollection.insertOne({
         question: 'Question',
-        answer: [{
+        answers: [{
           image: 'Image',
           answer: 'answer'
         }, {
@@ -108,7 +108,7 @@ describe('Survey Results Routes', () => {
       const accessToken = await makeAccessToken()
       const survey = await surveysCollection.insertOne({
         question: 'Question',
-        answer: [{
+        answers: [{
           image: 'Image',
           answer: 'answer'
         }, {
