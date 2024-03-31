@@ -55,7 +55,7 @@ describe('Survey Routes', () => {
         .post('/api/surveys')
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -73,7 +73,7 @@ describe('Survey Routes', () => {
         .set('x-access-token', 'invalidToken')
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -91,7 +91,7 @@ describe('Survey Routes', () => {
         .set('x-access-token', accessToken)
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
@@ -109,7 +109,7 @@ describe('Survey Routes', () => {
         .set('x-access-token', accessToken)
         .send({
           question: 'Question',
-          answer: [{
+          answers: [{
             image: 'Image',
             answer: 'Answer 1'
           }, {
