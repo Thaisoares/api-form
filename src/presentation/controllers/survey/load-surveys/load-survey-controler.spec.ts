@@ -24,7 +24,7 @@ const surveys: SurveyModel[] = [{
 }
 ]
 
-const makeLoadSurveys = (): LoadSurveys => {
+const mockLoadSurveys = (): LoadSurveys => {
   class LoadSurveysStub implements LoadSurveys {
     async load (): Promise<SurveyModel[]> {
       return await Promise.resolve(surveys)
@@ -39,7 +39,7 @@ type sutTypes = {
 }
 
 const makeSut = (): sutTypes => {
-  const loadSurveysStub = makeLoadSurveys()
+  const loadSurveysStub = mockLoadSurveys()
   const sut = new LoadSurveysController(loadSurveysStub)
   return {
     sut,

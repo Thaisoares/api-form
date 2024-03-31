@@ -1,4 +1,4 @@
-import { type AccountModel, type AuthenticationModel, type HashComparer, type LoadAccountByEmailRepository, type Encrypter, type UpdateAccessTokenRepository } from './db-authenticate-protocols'
+import { type AccountModel, type AuthenticationParams, type HashComparer, type LoadAccountByEmailRepository, type Encrypter, type UpdateAccessTokenRepository } from './db-authenticate-protocols'
 import { DbAuthentication } from './db-authentication'
 
 const fakeAccount: AccountModel = {
@@ -8,7 +8,7 @@ const fakeAccount: AccountModel = {
   password: 'hashedPassword'
 }
 
-const fakeAuthenticate: AuthenticationModel = {
+const fakeAuthenticate: AuthenticationParams = {
   email: 'email@mail.com',
   password: 'password'
 }

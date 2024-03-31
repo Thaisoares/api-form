@@ -1,11 +1,11 @@
-import { type AuthenticationModel, type Authentication, type Validation } from './login-controller-protocols'
+import { type AuthenticationParams, type Authentication, type Validation } from './login-controller-protocols'
 import { LoginController } from './login-controller'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { badRequest, ok, unauthorized } from '@/presentation/helpers/http/http-helper'
 
 const token = 'any_token'
 
-const makeHttpRequest = (): any => {
+const mockHttpRequest = (): any => {
   return {
     body: {
       email: 'email@mail.com',
@@ -14,16 +14,16 @@ const makeHttpRequest = (): any => {
   }
 }
 
-const makeAuthenticationStub = (): Authentication => {
+const mockAuthenticationStub = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string | null> {
-      return await new Promise(resolve => { resolve(token) })
+    async auth (authentication: AuthenticationParams): Promise<string | null> {
+      return await Promise.resolve(token)
     }
   }
   return new AuthenticationStub()
 }
 
-const makeValidation = (): Validation => {
+const mockValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate (input: any): Error | null {
       return null
@@ -39,8 +39,8 @@ type sutTypes = {
 }
 
 const makeSut = (): sutTypes => {
-  const authenticationStub = makeAuthenticationStub()
-  const validationStub = makeValidation()
+  const authenticationStub = mockAuthenticationStub()
+  const validationStub = mockValidation()
   const sut = new LoginController(authenticationStub, validationStub)
   return {
     sut,
@@ -53,7 +53,7 @@ describe('Login Controller', () => {
   test('Should call Authentication with correct values', async () => {
     const { sut, authenticationStub } = makeSut()
     const authSpy = jest.spyOn(authenticationStub, 'auth')
-    const httpRequest = makeHttpRequest()
+    const httpRequest = mockHttpRequest()
     const { email, password } = httpRequest.body
     await sut.handle(httpRequest)
     expect(authSpy).toHaveBeenCalledWith({ email, password })
@@ -62,7 +62,7 @@ describe('Login Controller', () => {
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(() => { throw new Error() })
-    const httpRequest = makeHttpRequest()
+    const httpRequest = mockHttpRequest()
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
@@ -72,7 +72,7 @@ describe('Login Controller', () => {
   test('Should return 401 if invalid credentials', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null))
-    const httpRequest = makeHttpRequest()
+    const httpRequest = mockHttpRequest()
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(unauthorized())
@@ -80,7 +80,7 @@ describe('Login Controller', () => {
 
   test('Should return 200 if valid credentials', async () => {
     const { sut } = makeSut()
-    const httpRequest = makeHttpRequest()
+    const httpRequest = mockHttpRequest()
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(ok({ accessToken: token }))
@@ -89,7 +89,7 @@ describe('Login Controller', () => {
   test('Should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validationSpy = jest.spyOn(validationStub, 'validate')
-    const httpRequest = makeHttpRequest()
+    const httpRequest = mockHttpRequest()
     await sut.handle(httpRequest)
     expect(validationSpy).toHaveBeenCalledWith(httpRequest.body)
   })
@@ -98,7 +98,7 @@ describe('Login Controller', () => {
     const { sut, validationStub } = makeSut()
     const error = new MissingParamError('filed')
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(error)
-    const httpRequest = makeHttpRequest()
+    const httpRequest = mockHttpRequest()
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(error))

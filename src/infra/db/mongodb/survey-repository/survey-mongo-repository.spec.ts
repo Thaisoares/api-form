@@ -1,12 +1,12 @@
 import { SurveyMongoRepository } from './survey-mongo-repository'
 import { MongoHelper } from '../helpers/mogo-helper'
-import { type AddSurveyModel } from '@/domain/usecases/survey/add-survey'
+import { type AddSurveyParams } from '@/domain/usecases/survey/add-survey'
 import { ObjectId, type Collection } from 'mongodb'
 import { type SurveyModel } from '@/domain/models/survey'
 
 let surveysCollection: Collection
 
-const makeSurvey = (): AddSurveyModel => {
+const makeSurvey = (): AddSurveyParams => {
   return {
     question: 'question',
     answers: [{

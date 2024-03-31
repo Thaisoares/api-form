@@ -1,14 +1,14 @@
 import { MongoHelper } from '../helpers/mogo-helper'
-import { type AddSurveyModel } from '@/domain/usecases/survey/add-survey'
+import { type AddSurveyParams } from '@/domain/usecases/survey/add-survey'
 import { type Collection } from 'mongodb'
-import { type AddAccountModel } from '@/domain/usecases/account/add-account'
+import { type AddAccountParams } from '@/domain/usecases/account/add-account'
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 
 let surveysCollection: Collection
 let surveyResultsCollection: Collection
 let accountCollection: Collection
 
-const makeSurvey = (): AddSurveyModel => {
+const makeSurvey = (): AddSurveyParams => {
   return {
     question: 'question',
     answers: [{
@@ -22,7 +22,7 @@ const makeSurvey = (): AddSurveyModel => {
   }
 }
 
-const makeAccount = (): AddAccountModel => {
+const makeAccount = (): AddAccountParams => {
   return {
     email: 'email@mail.com',
     name: 'name',

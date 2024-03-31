@@ -17,7 +17,7 @@ const fakeAccount: AccountModel = {
 const makeLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
     async loadByToken (token: string, role?: string): Promise<AccountModel | null> {
-      return await new Promise(resolve => { resolve(fakeAccount) })
+      return await Promise.resolve(fakeAccount)
     }
   }
   return new LoadAccountByTokenRepositoryStub()
@@ -26,7 +26,7 @@ const makeLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
 const makeDecrypter = (): Decrypter => {
   class DecrypterStub implements Decrypter {
     async decrypt (value: string): Promise<string | null> {
-      return await new Promise(resolve => { resolve('token') })
+      return await Promise.resolve('token')
     }
   }
   return new DecrypterStub()

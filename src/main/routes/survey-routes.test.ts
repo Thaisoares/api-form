@@ -2,7 +2,7 @@ import request from 'supertest'
 import app from '../config/app'
 import env from '../config/env'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mogo-helper'
-import { type AddSurveyModel } from '@/domain/usecases/survey/add-survey'
+import { type AddSurveyParams } from '@/domain/usecases/survey/add-survey'
 import { type Collection, ObjectId } from 'mongodb'
 import { hash } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
@@ -121,7 +121,7 @@ describe('Survey Routes', () => {
   })
 
   describe('GET /surveys', () => {
-    const survey: AddSurveyModel = {
+    const survey: AddSurveyParams = {
       question: 'question',
       answers: [{
         image: 'image',
