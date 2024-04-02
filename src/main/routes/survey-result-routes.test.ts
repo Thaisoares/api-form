@@ -104,7 +104,7 @@ describe('Survey Results Routes', () => {
         .expect(403)
     })
 
-    test('Should return 204 on add survey success', async () => {
+    test('Should return 200 and sumarry of survey on add survey response success', async () => {
       const accessToken = await makeAccessToken()
       const survey = await surveysCollection.insertOne({
         question: 'Question',
@@ -125,6 +125,58 @@ describe('Survey Results Routes', () => {
         .send({
           answer: 'answer'
         })
+        .expect(200)
+    })
+  })
+
+  describe('GET /surveys/:surveyId/results', () => {
+    test('Should return 403 on load survey result with invalid surveyId', async () => {
+      await request(app)
+        .get('/api/surveys/id/results')
+        .send()
+        .expect(403)
+    })
+
+    test('Should return 403 on load survey with wrong accessToken', async () => {
+      const survey = await surveysCollection.insertOne({
+        question: 'Question',
+        answers: [{
+          image: 'Image',
+          answer: 'answer'
+        }, {
+          answer: 'answer2'
+        }],
+        date: new Date()
+      })
+
+      const surveyId = survey.insertedId.toString()
+
+      await request(app)
+        .get(`/api/surveys/${surveyId}/results`)
+        .set('x-access-token', 'invalidToken')
+        .send()
+        .expect(403)
+    })
+
+    test('Should return 200 and sumarry of survey on add survey response success', async () => {
+      const accessToken = await makeAccessToken()
+      const survey = await surveysCollection.insertOne({
+        question: 'Question',
+        answers: [{
+          image: 'Image',
+          answer: 'answer'
+        }, {
+          answer: 'answer2'
+        }],
+        date: new Date()
+      })
+
+      const surveyId = survey.insertedId.toString()
+
+      await request(app)
+        .get(`/api/surveys/${surveyId}/results`)
+        .set('x-access-token', accessToken)
+        .send()
         .expect(200)
     })
   })

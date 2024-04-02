@@ -3,5 +3,5 @@ import { type SaveSurveyResult } from '@/domain/usecases/survey-result/save-surv
 import { SurveyResultMongoRepository } from '@/infra/db/mongodb/survey-result-repository/survey-result-mongo-repository'
 
 export const makeDbSaveSurveyResults = (): SaveSurveyResult => {
-  return new DbSaveSurveyResult(new SurveyResultMongoRepository())
+  return new DbSaveSurveyResult(new SurveyResultMongoRepository(), new SurveyResultMongoRepository())
 }
